@@ -9,11 +9,10 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class PerfilPersona {
 
-    @Type(type = "org.hibernate.type.ShortType")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO )
     @Column(name = "n_id_perfil",columnDefinition = "serial2")
-    private int idPerfilPersona;
+    private Integer idPerfilPersona;
 
     @NotNull
     @Column(name = "s_perfil", length = 15)
@@ -23,11 +22,11 @@ public class PerfilPersona {
     @Column(name = "s_descripcion" , length = 120)
     private String descripcion;
 
-    public int getIdPerfilPersona() {
+    public Integer getIdPerfilPersona() {
         return idPerfilPersona;
     }
 
-    public void setIdPerfilPersona(int idPerfilPersona) {
+    public void setIdPerfilPersona(Integer idPerfilPersona) {
         this.idPerfilPersona = idPerfilPersona;
     }
 

@@ -8,7 +8,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.text.DateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -46,9 +48,9 @@ public class Persona {
     @Column(name = "f_fecha_nacimiento")
     private Date fecha;
 
-    @NotNull(message = "El campo sexo no puede ser null")
-    @NotBlank(message = "El campo sexo no puede ser vacio")
-    @Column(name = "s_sexo", length = 1)
+    //@NotNull(message = "El campo sexo no puede ser null")
+   // @NotBlank(message = "El campo sexo no puede ser vacio")
+    @Column(name = "s_sexo", length = 1, columnDefinition = "char(1)")
     private char sexo;
 
     @NotNull(message = "El campo password no puede ser null")
@@ -58,6 +60,9 @@ public class Persona {
     @ManyToOne
     @JoinColumn(name = "n_id_perfil", nullable = false,columnDefinition = "smallint")
     private PerfilPersona perfilPersona;
+
+    public Persona() {
+    }
 
     public Integer getIdpersona() {
         return idpersona;
@@ -104,6 +109,8 @@ public class Persona {
     }
 
     public void setFecha(Date fecha) {
+//        DateTimeFormatter formatofecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//        formatofecha.
         this.fecha = fecha ;
     }
 
@@ -121,6 +128,14 @@ public class Persona {
 
     public void setActivo(char activo) {
         this.activo = activo;
+    }
+
+    public PerfilPersona getPerfilPersona() {
+        return perfilPersona;
+    }
+
+    public void setPerfilPersona(PerfilPersona perfilPersona) {
+        this.perfilPersona = perfilPersona;
     }
 
     @Override
