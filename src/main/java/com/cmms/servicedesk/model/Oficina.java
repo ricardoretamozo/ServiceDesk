@@ -7,13 +7,13 @@ import javax.validation.constraints.NotBlank;
 public class Oficina {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "n_id_oficina")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "n_id_oficina", columnDefinition = "serial2")
     private Integer idOficina;
 
     @ManyToOne
-    @JoinColumn(name = "n_id_organo", nullable = false,columnDefinition = "smallint")
-    private OficinaUnionOrgano oficinaUnionOrgano;
+    @JoinColumn(name = "n_id_organo")
+    private Organo organo;
 
     @NotBlank(message = "La oficina debe tener un nombre")
     @Column(name = "s_oficina", length = 120)
@@ -27,13 +27,6 @@ public class Oficina {
         this.idOficina = idOficina;
     }
 
-    public Organo getOrgano() {
-        return organo;
-    }
-
-    public void setOrgano(Organo organo) {
-        this.organo = organo;
-    }
 
     public String getOficina() {
         return oficina;
@@ -41,5 +34,13 @@ public class Oficina {
 
     public void setOficina(String oficina) {
         this.oficina = oficina;
+    }
+
+    public Organo getOrgano() {
+        return organo;
+    }
+
+    public void setOrgano(Organo organo) {
+        this.organo = organo;
     }
 }
