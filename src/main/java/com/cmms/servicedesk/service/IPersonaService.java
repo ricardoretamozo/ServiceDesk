@@ -15,4 +15,6 @@ public interface IPersonaService {
     Persona update(Persona cliente);
 
     void delete(Integer id);
+
+    Persona findByDni(String dni);
 }
