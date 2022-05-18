@@ -1,19 +1,21 @@
 package com.cmms.servicedesk.model;
 
-import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.UniqueElements;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.text.DateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Persona {
 
     @Id
@@ -61,93 +63,4 @@ public class Persona {
     @JoinColumn(name = "n_id_perfil", nullable = false,columnDefinition = "smallint")
     private PerfilPersona perfilPersona;
 
-    public Persona() {
-    }
-
-    public Integer getIdpersona() {
-        return idpersona;
-    }
-
-    public void setIdpersona(Integer idpersona) {
-        this.idpersona = idpersona;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-//        DateTimeFormatter formatofecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-//        formatofecha.
-        this.fecha = fecha ;
-    }
-
-    public char getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(char sexo) {
-        this.sexo = sexo;
-    }
-
-    public char getActivo() {
-        return activo;
-    }
-
-    public void setActivo(char activo) {
-        this.activo = activo;
-    }
-
-    public PerfilPersona getPerfilPersona() {
-        return perfilPersona;
-    }
-
-    public void setPerfilPersona(PerfilPersona perfilPersona) {
-        this.perfilPersona = perfilPersona;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Persona persona = (Persona) o;
-        return Objects.equals(idpersona, persona.idpersona);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idpersona);
-    }
 }
