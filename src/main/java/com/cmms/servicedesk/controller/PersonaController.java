@@ -48,6 +48,11 @@ public class PersonaController {
         return new ResponseEntity<>(personaService.create(persona), HttpStatus.CREATED);
     }
 
+    @PostMapping("/personas/register")
+    public ResponseEntity<Persona> register(@Valid @RequestBody Persona persona){
+        return new ResponseEntity<>(personaService.create(persona), HttpStatus.CREATED);
+    }
+
     @PutMapping("/personas")
     public ResponseEntity<Persona> update(@Valid @RequestBody Persona persona){
         return personaService.findById(persona.getIdpersona())

@@ -28,7 +28,7 @@ public class HistorialPersonaController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<HistorialPersona> create(@Valid @RequestBody HistorialPersona historialPersona){
         return new ResponseEntity<>(historialPersonaService.create(historialPersona), HttpStatus.CREATED);
     }
