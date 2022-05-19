@@ -31,7 +31,7 @@ public class PersonaController {
     @Autowired
     private PersonaService personaService;
 
-    @GetMapping
+    @GetMapping("/personas")
     public ResponseEntity<List<Persona>> findAll(){
         return ResponseEntity.ok(personaService.findAll());
     }
