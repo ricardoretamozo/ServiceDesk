@@ -31,4 +31,23 @@ public class ServiceDeskApplication {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    CommandLineRunner run(PerfilPersonaService perfilService, PersonaService personaService) {
+        return args -> {
+            PerfilPersona perfil1 = new PerfilPersona(1, "COORDINADOR INFORMATICO", "1");
+            PerfilPersona perfil2 = new PerfilPersona(2, "ASISTENTE INFORMATICO", "1");
+            PerfilPersona perfil3 = new PerfilPersona(3, "SOPORTE TECNICO", "1");
+            PerfilPersona perfil4 = new PerfilPersona(4, "USUARIO COMUN", "1");
+            perfilService.create(perfil1);
+            perfilService.create(perfil2);
+            perfilService.create(perfil3);
+            perfilService.create(perfil4);
+
+            personaService.create(new Persona(null, "Juan","apellido","73824465","cocacola",null,'M','A',perfil1));
+            personaService.create(new Persona(null, "Juan1","apellido","83824465","cocacola",null,'M','A',perfil2));
+            personaService.create(new Persona(null, "Juan2","apellido","93824465","cocacola",null,'M','A',perfil3));
+            personaService.create(new Persona(null, "Juan3","apellido","13824465","cocacola",null,'M','A',perfil4));
+
+        };
+    }
 }

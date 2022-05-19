@@ -21,7 +21,7 @@ public class PerfilPersona {
     private Integer idPerfilPersona;
 
     @NotNull
-    @Column(name = "s_perfil", length = 15)
+    @Column(name = "s_perfil", length = 30)
     private String perfil;
 
     @NotBlank(message = "Debe indicar la descripcion")
