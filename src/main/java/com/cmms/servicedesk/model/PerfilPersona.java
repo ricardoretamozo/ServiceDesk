@@ -28,5 +28,9 @@ public class PerfilPersona {
     @Column(name = "s_descripcion" , length = 120)
     private String descripcion;
 
+    @NotNull(message = "El campo estado no puede ser null")
+    @Column(name = "s_activo", length = 1, columnDefinition = "char(1)")
+    private char activo;
+
 
 }

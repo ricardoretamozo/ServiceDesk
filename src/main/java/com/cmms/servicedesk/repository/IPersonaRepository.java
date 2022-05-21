@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface IPersonaRepository extends JpaRepository<Persona, Integer> {
 
     Persona findByDni(String dni);
+    Persona findByUsuario(String usuario);
 }

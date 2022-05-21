@@ -1,10 +1,17 @@
 package com.cmms.servicedesk.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Sede {
 
     @Id
@@ -20,27 +27,8 @@ public class Sede {
     @Column(name = "s_direccion", length = 80)
     private String direccion;
 
-    public Integer getIdSede() {
-        return idSede;
-    }
+    @NotNull(message = "La sede debe tener un estado")
+    @Column(name = "s_activo", length = 1, columnDefinition = "char(1) default 'S'")
+    private char activo;
 
-    public void setIdSede(Integer idSede) {
-        this.idSede = idSede;
-    }
-
-    public String getSede() {
-        return sede;
-    }
-
-    public void setSede(String sede) {
-        this.sede = sede;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
 }

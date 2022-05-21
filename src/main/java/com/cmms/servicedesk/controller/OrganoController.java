@@ -37,15 +37,19 @@ public class OrganoController {
     @PutMapping
     public ResponseEntity<Organo> update(@Valid @RequestBody Organo organo){
         return organoService.findById(organo.getIdOrgano())
-                .map(o -> ResponseEntity.ok(organoService.create(organo)))
+                .map(o -> ResponseEntity.ok(organoService.update(organo)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Organo> delete(@PathVariable("id") Integer idOrgano){
+    public ResponseEntity<Organo> updateActivo(@PathVariable("id") Integer idOrgano){
         return organoService.findById(idOrgano)
                 .map(o -> {
-                    organoService.delete(idOrgano);
+                    char activo = o.getActivo();
+                    if(activo == 'S'){
+                        o.setActivo('N');
+                    }else {o.setActivo('S');}
+                    organoService.update(o);
                     return ResponseEntity.ok(o);
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());

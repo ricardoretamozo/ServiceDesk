@@ -1,10 +1,17 @@
 package com.cmms.servicedesk.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SoporteTecnicoSede {
 
     @Id
@@ -28,67 +35,18 @@ public class SoporteTecnicoSede {
     @JoinColumn(name = "n_id_persona", nullable = false)
     private Persona persona;
 
+    @Column(name = "s_activo", nullable = false, columnDefinition = "char(1)", length = 1)
+    private char activo;
+
+    @ManyToOne
+    @JoinColumn(name = "id_persona_logueado", nullable = false)
+    private Persona idPersonaLogueado;
+
     @Column(name = "fh_fecha", nullable = false)
     private LocalDate fecha;
 
     @Column(name = "s_ip_pc",nullable = false)
     private String IP;
-
-    public Integer getIdSoporteTecnicoSede() {
-        return idSoporteTecnicoSede;
-    }
-
-    public void setIdSoporteTecnicoSede(Integer idSoporteTecnicoSede) {
-        this.idSoporteTecnicoSede = idSoporteTecnicoSede;
-    }
-
-    public Sede getSede() {
-        return sede;
-    }
-
-    public void setSede(Sede sede) {
-        this.sede = sede;
-    }
-
-    public Organo getOrgano() {
-        return organo;
-    }
-
-    public void setOrgano(Organo organo) {
-        this.organo = organo;
-    }
-
-    public Oficina getOficina() {
-        return oficina;
-    }
-
-    public void setOficina(Oficina oficina) {
-        this.oficina = oficina;
-    }
-
-    public Persona getPersona() {
-        return persona;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
-    }
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getIP() {
-        return IP;
-    }
-
-    public void setIP(String IP) {
-        this.IP = IP;
-    }
 
     @Override
     public boolean equals(Object o) {

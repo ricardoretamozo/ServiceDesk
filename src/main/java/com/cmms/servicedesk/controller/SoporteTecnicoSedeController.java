@@ -54,7 +54,11 @@ public class SoporteTecnicoSedeController {
     public ResponseEntity<SoporteTecnicoSede> delete(@PathVariable("id") Integer idSoporteTecnicoSede){
         return soporteTecnicoSedeService.findById(idSoporteTecnicoSede)
                 .map(o -> {
-                    soporteTecnicoSedeService.delete(idSoporteTecnicoSede);
+                    char activo = o.getActivo();
+                    if(activo == 'S'){
+                        o.setActivo('N');
+                    }else {o.setActivo('S');}
+                    soporteTecnicoSedeService.update(o);
                     return ResponseEntity.ok(o);
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());

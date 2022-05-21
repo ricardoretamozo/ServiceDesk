@@ -61,9 +61,13 @@ public class PersonaController {
     }
 
     @DeleteMapping("/personas/{id}")
-    public ResponseEntity<Persona> delete(@PathVariable("id") Integer idPersona){
+    public ResponseEntity<Persona> updateActivo(@PathVariable("id") Integer idPersona){
         return personaService.findById(idPersona)
                 .map(c -> {
+                    char activo = c.getActivo();
+                    if(activo == 'S'){
+                        c.setActivo('N');
+                    }else {c.setActivo('S');}
                     personaService.delete(idPersona);
                     return ResponseEntity.ok(c);
                 })

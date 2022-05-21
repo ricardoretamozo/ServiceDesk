@@ -1,10 +1,17 @@
 package com.cmms.servicedesk.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Organo {
 
     @Id
@@ -21,27 +28,7 @@ public class Organo {
     @Column(name = "s_organo", length = 100)
     private String organo;
 
-    public Integer getIdOrgano() {
-        return idOrgano;
-    }
-
-    public void setIdOrgano(Integer idOrgano) {
-        this.idOrgano = idOrgano;
-    }
-
-    public Sede getSede() {
-        return sede;
-    }
-
-    public void setSede(Sede sede) {
-        this.sede = sede;
-    }
-
-    public String getOrgano() {
-        return organo;
-    }
-
-    public void setOrgano(String organo) {
-        this.organo = organo;
-    }
+    @NotNull(message = "El organo debe tener un estado")
+    @Column(name = "s_activo", length = 1, columnDefinition = "char(1)")
+    private char activo;
 }

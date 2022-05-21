@@ -1,5 +1,8 @@
 package com.cmms.servicedesk.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -8,6 +11,9 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Date;
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class HistorialPersona {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,10 +41,8 @@ public class HistorialPersona {
     private LocalDate terminaCargo;
 
     @Column(name = "s_activo", nullable = false, columnDefinition = "char(1)", length = 1)
-    private String activo;
-    @ManyToOne
-    @JoinColumn(name = "id_persona_logueado", nullable = false)
-    private Persona idPersonaLogueado;
+    private char activo;
+
 
     @CreatedDate
     @Column(name = "fh_fecha", updatable = false)
@@ -47,86 +51,4 @@ public class HistorialPersona {
     @Column(name = "s_ip_pc", nullable = false)
     private String IP;
 
-    public HistorialPersona() {
-    }
-
-    public Integer getIdHistorialPersona() {
-        return idHistorialPersona;
-    }
-
-    public void setIdHistorialPersona(Integer idHistorialPersona) {
-        this.idHistorialPersona = idHistorialPersona;
-    }
-
-    public Persona getPersona() {
-        return persona;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
-    }
-
-    public Cargo getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(Cargo cargo) {
-        this.cargo = cargo;
-    }
-
-    public Oficina getOficina() {
-        return oficina;
-    }
-
-    public void setOficina(Oficina oficina) {
-        this.oficina = oficina;
-    }
-
-    public LocalDate getIniciaCargo() {
-        return iniciaCargo;
-    }
-
-    public void setIniciaCargo(LocalDate iniciaCargo) {
-        this.iniciaCargo = iniciaCargo;
-    }
-
-    public LocalDate getTerminaCargo() {
-        return terminaCargo;
-    }
-
-    public void setTerminaCargo(LocalDate terminaCargo) {
-        this.terminaCargo = terminaCargo;
-    }
-
-    public String getActivo() {
-        return activo;
-    }
-
-    public void setActivo(String activo) {
-        this.activo = activo;
-    }
-
-    public Persona getIdPersonaLogueado() {
-        return idPersonaLogueado;
-    }
-
-    public void setIdPersonaLogueado(Persona idPersonaLogueado) {
-        this.idPersonaLogueado = idPersonaLogueado;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getIP() {
-        return IP;
-    }
-
-    public void setIP(String IP) {
-        this.IP = IP;
-    }
 }

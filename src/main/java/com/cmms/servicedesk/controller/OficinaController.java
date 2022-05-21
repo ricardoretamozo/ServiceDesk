@@ -48,10 +48,14 @@ public class OficinaController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Oficina> delete(@PathVariable("id") Integer idOficina){
+    public ResponseEntity<Oficina> updateActivo(@PathVariable("id") Integer idOficina){
         return oficinaService.findById(idOficina)
                 .map(o -> {
-                    oficinaService.delete(idOficina);
+                    char activo = o.getActivo();
+                    if(activo == 'S'){
+                        o.setActivo('N');
+                    }else {o.setActivo('S');}
+                    oficinaService.update(o);
                     return ResponseEntity.ok(o);
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());

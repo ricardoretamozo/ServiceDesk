@@ -41,11 +41,16 @@ public class HistorialPersonaController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<HistorialPersona> delete(@PathVariable("id") Integer idHistorialPersona){
+    public ResponseEntity<HistorialPersona> updateActivo(@PathVariable("id") Integer idHistorialPersona){
+
         return historialPersonaService.findById(idHistorialPersona)
-                .map(o -> {
-                    historialPersonaService.delete(idHistorialPersona);
-                    return ResponseEntity.ok(o);
+                .map(h -> {
+                    char activo = h.getActivo();
+                    if(activo == 'S'){
+                        h.setActivo('N');
+                    }else {h.setActivo('S');}
+                    historialPersonaService.update(h);
+                    return ResponseEntity.ok(h);
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

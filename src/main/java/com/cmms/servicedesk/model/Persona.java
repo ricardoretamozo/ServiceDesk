@@ -41,9 +41,14 @@ public class Persona {
     @Column(name = "s_dni" , length = 8 , columnDefinition = "char(8)",unique = true)
     private String dni;
 
+    @NotNull(message = "El campo usuario no puede ser null")
+    //@Size(min = 8 , message = "Ingresa un DNI valido")
+    @Column(name = "s_usuario" , length = 8 , columnDefinition = "char(8)",unique = true)
+    private String usuario;
+
     @NotNull(message = "El campo password no puede ser null")
     @NotBlank(message = "El campo password minimo tiene que tener 7 carateres")
-    @Size(min = 7 , max = 256)
+    @Size(min = 7 , max = 256, message = "El campo password minimo tiene que tener 7 carateres")
     @Column(name = "s_password" , length = 256)
     private String password;
 
@@ -51,12 +56,12 @@ public class Persona {
     private Date fecha;
 
     //@NotNull(message = "El campo sexo no puede ser null")
-   // @NotBlank(message = "El campo sexo no puede ser vacio")
+    //@NotBlank(message = "El campo sexo no puede ser vacio")
     @Column(name = "s_sexo", length = 1, columnDefinition = "char(1)")
     private char sexo;
 
-    @NotNull(message = "El campo password no puede ser null")
-    @Column(name = "s_activo", length = 1)
+    @NotNull(message = "El campo estado no puede ser null")
+    @Column(name = "s_activo", length = 1, columnDefinition = "char(1)")
     private char activo;
 
     @ManyToOne

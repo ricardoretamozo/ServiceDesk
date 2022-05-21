@@ -41,10 +41,14 @@ public class SedeController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Sede> delete(@PathVariable("id") Integer idSede){
+    public ResponseEntity<Sede> updateActivo(@PathVariable("id") Integer idSede){
         return sedeService.findById(idSede)
                 .map(s -> {
-                    sedeService.delete(idSede);
+                    char activo = s.getActivo();
+                    if(activo == 'S'){
+                        s.setActivo('N');
+                    }else {s.setActivo('S');}
+                    sedeService.update(s);
                     return ResponseEntity.ok(s);
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());

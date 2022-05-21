@@ -41,11 +41,15 @@ public class PerfilPersonaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<PerfilPersona> delete(@PathVariable("id") Integer idPerfilPersona){
+    public ResponseEntity<PerfilPersona> updateActivo(@PathVariable("id") Integer idPerfilPersona){
         return perfilPersonaService.findById(idPerfilPersona)
-                .map(c -> {
-                    perfilPersonaService.delete(idPerfilPersona);
-                    return ResponseEntity.ok(c);
+                .map(p -> {
+                    char activo = p.getActivo();
+                    if(activo == 'S'){
+                        p.setActivo('N');
+                    }else {p.setActivo('S');}
+                    perfilPersonaService.update(p);
+                    return ResponseEntity.ok(p);
                 })
                 .orElseGet(()-> ResponseEntity.notFound().build());
     }
