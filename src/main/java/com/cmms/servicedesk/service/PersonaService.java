@@ -1,6 +1,7 @@
 package com.cmms.servicedesk.service;
 
 import com.cmms.servicedesk.model.Persona;
+import com.cmms.servicedesk.model.User;
 import com.cmms.servicedesk.repository.IPersonaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -63,6 +64,7 @@ public class PersonaService implements IPersonaService, UserDetailsService {
         return personaRepository.findByDni(dni);
     }
 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Persona usuario = personaRepository.findByDni(username);
@@ -76,6 +78,6 @@ public class PersonaService implements IPersonaService, UserDetailsService {
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         //usuario.getPerfilPersona().forEach(perfilPersona -> authorities.add(new SimpleGrantedAuthority(perfilPersona.getNombre())));
         authorities.add(new SimpleGrantedAuthority(usuario.getPerfilPersona().getPerfil()));
-        return new org.springframework.security.core.userdetails.User(usuario.getDni(), usuario.getPassword(),authorities);
+        return new User(usuario.getDni(), usuario.getPassword(),authorities, usuario.getNombre()+" "+usuario.getApellido());
     }
 }

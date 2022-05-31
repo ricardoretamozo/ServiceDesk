@@ -17,4 +17,5 @@ public interface IPersonaService {
     void delete(Integer id);
 
     Persona findByDni(String dni);
+
 }
