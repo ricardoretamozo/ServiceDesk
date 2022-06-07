@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -25,6 +26,15 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(ServiceDeskApplication.class);
 
+    @ExceptionHandler(UserNotFoundException.class)
+    public final ResponseEntity<ExceptionResponse> manejarUserNotFoundException(UserNotFoundException e){
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                new Date(),
+                "Error de autorizacion",
+                e.getMessage());
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.UNAUTHORIZED);
+    }
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<ExceptionResponse> manejarTodasExceptions(Exception e){
         ExceptionResponse exceptionResponse = new ExceptionResponse(
@@ -52,4 +62,5 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
         );
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
+
 }
