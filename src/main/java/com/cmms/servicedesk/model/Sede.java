@@ -24,6 +24,7 @@ public class Sede {
     @Column(name = "s_sede", length = 80)
     private String sede;
 
+    @NotBlank(message = "La sede debe tener direccion.")
     @Column(name = "s_direccion", length = 80)
     private String direccion;
 

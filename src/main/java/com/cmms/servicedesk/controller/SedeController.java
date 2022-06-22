@@ -2,23 +2,49 @@ package com.cmms.servicedesk.controller;
 
 import com.cmms.servicedesk.model.Sede;
 import com.cmms.servicedesk.service.SedeService;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.cmms.servicedesk.service.OrganoService;
+import com.cmms.servicedesk.service.OficinaService;
 
+import javax.persistence.Entity;
 import javax.validation.Valid;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/sedes")
 public class SedeController {
     @Autowired
     private SedeService sedeService;
+    @Autowired
+    private OrganoService organoService;
+    @Autowired
+    private OficinaService oficinaService;
 
     @GetMapping
     public ResponseEntity<List<Sede>> findAll(){
         return ResponseEntity.ok(sedeService.findAll());
+    }
+
+
+    @GetMapping(path = "/completo")
+    public Map findCompleto(){
+        HashMap map = new HashMap<>();
+//        List sedes = sedeService.findAll();
+        HashMap nombresedes = new HashMap<>();
+
+        HashMap organo = new HashMap<>();
+
+        for (int i = 0; i < sedeService.findAll().size(); i++){
+//            List organos = Collections.singletonList(sedeService.findById(sedeService.findAll().get(i).getIdSede()));
+//            nombresedes.put(sedeService.findAll().get(i).getSede(), sedeService.findById(sedeService.findAll().get(i).getIdSede()));
+            organo.put(sedeService.findAll().get(i).getSede(), organoService.findByIdSede(sedeService.findAll().get(0).getIdSede()));
+        }
+        map.put("data",organo);
+        return map;
     }
 
     @GetMapping(path = "/{id}")

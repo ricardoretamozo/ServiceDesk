@@ -41,10 +41,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/api/login/**", "api/refreshtoken/**", "/api/personas/register").permitAll();
-        http.authorizeRequests().antMatchers("/api/**").hasAnyAuthority("COORDINADOR INFORMATICO");
-        http.authorizeRequests().antMatchers("/api/personas/**", "/api/soporteTecnicoSede/**").hasAnyAuthority("SOPORTE TECNICO","ASISTENTE INFORMATICO");
-        http.authorizeRequests().antMatchers("/api/historialpersonas/save", "/api/sedes/listAll", "/api/organos/listAll", "/api/oficinas/listAll").hasAnyAuthority("USUARIO COMUN");
+        http.authorizeRequests().antMatchers("/api/login/**", "/api/refreshtoken/**", "/api/personas/register").permitAll();
+        http.authorizeRequests().antMatchers("/api/personas/**", "/api/soporteTecnicoSede/**").hasAnyAuthority("SOPORTE TECNICO","ASISTENTE INFORMATICO","COORDINADOR INFORMATICO");
+        http.authorizeRequests().antMatchers("/api/historialpersonas/**", "/api/sedes/listAll", "/api/organos/listAll", "/api/oficinas/listall/**/**", "/api/cargos/listall/**/**").hasAnyAuthority("USUARIO COMUN", "COORDINADOR INFORMATICO");
+        http.authorizeRequests().antMatchers("/api/**").hasAnyAuthority("COORDINADOR INFORMATICO", "USUARIO COMUN");
         http.authorizeRequests().anyRequest().permitAll();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

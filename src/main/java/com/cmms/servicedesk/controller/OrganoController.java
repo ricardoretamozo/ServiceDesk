@@ -22,7 +22,7 @@ public class OrganoController {
         return ResponseEntity.ok(organoService.findAll());
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "listall/{id}")
     public ResponseEntity<Organo> findById(@PathVariable("id") Integer idOrgano){
         return organoService.findById(idOrgano)
                 .map(ResponseEntity::ok)

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class OrganoService implements ICRUDService<Organo>{
+public class OrganoService implements IOrganoService{
 
     @Autowired
     private IOrganoRepository organoRepository;
@@ -18,10 +18,14 @@ public class OrganoService implements ICRUDService<Organo>{
     public List<Organo> findAll() {
         return organoRepository.findAll();
     }
-
     @Override
     public Optional<Organo> findById(Integer id) {
         return organoRepository.findById(id);
+    }
+
+    @Override
+    public Organo findByIdSede(Integer id) {
+        return organoRepository.findBySedeIdSede(id);
     }
 
     @Override

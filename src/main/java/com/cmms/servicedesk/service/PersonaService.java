@@ -51,6 +51,7 @@ public class PersonaService implements IPersonaService, UserDetailsService {
 
     @Override
     public Persona update(Persona cliente) {
+        cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
         return personaRepository.save(cliente);
     }
 
@@ -78,6 +79,6 @@ public class PersonaService implements IPersonaService, UserDetailsService {
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         //usuario.getPerfilPersona().forEach(perfilPersona -> authorities.add(new SimpleGrantedAuthority(perfilPersona.getNombre())));
         authorities.add(new SimpleGrantedAuthority(usuario.getPerfilPersona().getPerfil()));
-        return new User(usuario.getDni(), usuario.getPassword(),authorities, usuario.getNombre()+" "+usuario.getApellido());
+        return new User(usuario.getDni(), usuario.getPassword(),authorities, usuario.getNombre()+" "+usuario.getApellido(), usuario.getIdpersona());
     }
 }

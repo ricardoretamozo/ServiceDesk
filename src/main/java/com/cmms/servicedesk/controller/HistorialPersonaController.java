@@ -1,7 +1,9 @@
 package com.cmms.servicedesk.controller;
 
 import com.cmms.servicedesk.model.HistorialPersona;
+import com.cmms.servicedesk.model.Persona;
 import com.cmms.servicedesk.service.HistorialPersonaService;
+import com.cmms.servicedesk.service.PersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,12 +11,15 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/historialpersonas")
 public class HistorialPersonaController {
     @Autowired
     private HistorialPersonaService historialPersonaService;
+    @Autowired
+    private PersonaService personaService;
 
     @GetMapping
     public ResponseEntity<List<HistorialPersona>> findAll(){
@@ -30,6 +35,16 @@ public class HistorialPersonaController {
 
     @PostMapping("/save")
     public ResponseEntity<HistorialPersona> create(@Valid @RequestBody HistorialPersona historialPersona){
+        historialPersonaService.findByPersonaAndActivo(historialPersona.getPersona(),'S')
+                .map(h -> {
+                    h.setActivo('N');
+                    historialPersonaService.update(h);
+                    historialPersonaService.create(historialPersona);
+                    return ResponseEntity.ok(h);
+                })
+                .orElseGet(() -> {
+                    return new ResponseEntity<>(historialPersonaService.create(historialPersona), HttpStatus.CREATED);
+                });
         return new ResponseEntity<>(historialPersonaService.create(historialPersona), HttpStatus.CREATED);
     }
 
@@ -52,6 +67,14 @@ public class HistorialPersonaController {
                     historialPersonaService.update(h);
                     return ResponseEntity.ok(h);
                 })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+    @GetMapping(path = "/persona/{id}")
+    public ResponseEntity<HistorialPersona> findByPersona(@PathVariable("id") Integer idHistorialPersona){
+        Persona persona = personaService.findById(idHistorialPersona).get();
+        Optional<HistorialPersona> historialPersona = historialPersonaService.findByPersonaAndActivo(persona,'S');
+        // System.out.println(historialPersona);
+        return historialPersona.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

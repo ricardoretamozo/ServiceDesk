@@ -6,9 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -52,8 +51,15 @@ public class Persona {
     @Column(name = "s_password" , length = 256)
     private String password;
 
+    @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}")
+    @Column(name = "s_correo", length = 80)
+    private String correo;
+
+    @Column(name = "s_celular", length = 15)
+    private String celular;
+
     @Column(name = "f_fecha_nacimiento")
-    private Date fecha;
+    private LocalDate fecha;
 
     //@NotNull(message = "El campo sexo no puede ser null")
     //@NotBlank(message = "El campo sexo no puede ser vacio")

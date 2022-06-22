@@ -71,7 +71,7 @@ public class PersonaController {
                     if(activo == 'S'){
                         c.setActivo('N');
                     }else {c.setActivo('S');}
-                    personaService.delete(idPersona);
+                    personaService.update(c);
                     return ResponseEntity.ok(c);
                 })
                 .orElseGet(()-> ResponseEntity.notFound().build());
@@ -106,6 +106,7 @@ public class PersonaController {
     @GetMapping("/refreshtoken")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
+
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             try {
                 String refresh_token = authorizationHeader.substring("Bearer ".length());
@@ -125,6 +126,9 @@ public class PersonaController {
                 Map<String, String> tokens=new HashMap<>();
                 tokens.put("access_token", access_token);
                 tokens.put("refresh_token", refresh_token);
+                tokens.put("rol", perfilPersonas.stream().map(PerfilPersona::getPerfil).collect(Collectors.toList()).toString());
+                tokens.put("name", usuario.getNombre()+usuario.getApellido());
+                tokens.put("identificador", usuario.getIdpersona().toString());
                 response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                 new ObjectMapper().writeValue(response.getOutputStream(), tokens);
 

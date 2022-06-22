@@ -20,7 +20,6 @@ public class PerfilPersona {
     @Column(name = "n_id_perfil",columnDefinition = "serial2")
     private Integer idPerfilPersona;
 
-    @NotNull
     @Column(name = "s_perfil", length = 30)
     private String perfil;
 

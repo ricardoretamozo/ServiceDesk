@@ -28,7 +28,7 @@ public class OficinaController {
         return ResponseEntity.ok(oficinaService.findAll());
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "listall/{id}")
     public ResponseEntity<Oficina> findById(@PathVariable("id") Integer idOficina){
         return oficinaService.findById(idOficina)
                 .map(ResponseEntity::ok)

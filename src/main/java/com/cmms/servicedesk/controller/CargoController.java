@@ -22,7 +22,7 @@ public class CargoController {
         return ResponseEntity.ok(cargoService.findAll());
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "listall/{id}")
     public ResponseEntity<Cargo> findById(@PathVariable("id") Integer idCargo){
         return cargoService.findById(idCargo)
                 .map(ResponseEntity::ok)

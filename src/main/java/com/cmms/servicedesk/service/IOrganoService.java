@@ -10,6 +10,7 @@ public interface IOrganoService {
     List<Organo> findAll();
 
     Optional<Organo> findById(Integer id);
+    Organo findByIdSede(Integer id);
 
     Organo create(Organo sede);
 
