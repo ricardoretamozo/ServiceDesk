@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -73,5 +74,8 @@ public class Persona {
     @ManyToOne
     @JoinColumn(name = "n_id_perfil", nullable = false,columnDefinition = "smallint")
     private PerfilPersona perfilPersona;
+
+//    @OneToMany(mappedBy = "persona", fetch = FetchType.LAZY)
+//    private List<PersonaOrgano> personaOrganoList;
 
 }
