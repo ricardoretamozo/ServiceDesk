@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +39,7 @@ public class HistorialPersonaController {
         historialPersonaService.findByPersonaAndActivo(historialPersona.getPersona(),'S')
                 .map(h -> {
                     h.setActivo('N');
+                    h.setTerminaCargo(historialPersona.getIniciaCargo());
                     historialPersonaService.update(h);
                     historialPersonaService.create(historialPersona);
                     return ResponseEntity.ok(h);

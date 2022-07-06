@@ -37,7 +37,7 @@ public class HistorialPersona {
     private LocalDate iniciaCargo;
 
     //@NotNull(message = "El campo terminaCargo no puede ser null")
-    @Column(name = "f_hasta", nullable = false)
+    @Column(name = "f_hasta", nullable = true)
     private LocalDate terminaCargo;
 
     @Column(name = "s_activo", nullable = false, columnDefinition = "char(1)", length = 1)
