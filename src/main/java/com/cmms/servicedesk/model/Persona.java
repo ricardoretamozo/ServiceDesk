@@ -48,8 +48,8 @@ public class Persona {
 
     @NotNull(message = "El campo password no puede ser null")
     @NotBlank(message = "El campo password minimo tiene que tener 7 carateres")
-    @Size(min = 7 , max = 256, message = "El campo password minimo tiene que tener 7 carateres")
-    @Column(name = "s_password" , length = 256)
+    @Size(min = 6 , max = 20, message = "El campo password minimo tiene que tener 6 carateres")
+    @Column(name = "s_password")
     private String password;
 
     @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}")

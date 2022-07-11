@@ -3,6 +3,7 @@ package com.cmms.servicedesk.service;
 import com.cmms.servicedesk.model.Cargo;
 import com.cmms.servicedesk.repository.ICargoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class CargoService implements ICRUDService<Cargo>{
 
     @Override
     public List<Cargo> findAll() {
-        return cargoRepository.findAll();
+        return cargoRepository.findAll(Sort.by(Sort.Direction.ASC, "cargo"));
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.cmms.servicedesk.service;
 import com.cmms.servicedesk.model.Sede;
 import com.cmms.servicedesk.repository.ISedeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class SedeService implements ISedeService{
     private ISedeRepository sedeRepository;
     @Override
     public List<Sede> findAll() {
-        return sedeRepository.findAll();
+        return sedeRepository.findAll(Sort.by(Sort.Direction.ASC, "sede"));
     }
 
     @Override

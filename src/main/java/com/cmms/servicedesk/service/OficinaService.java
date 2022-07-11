@@ -3,6 +3,7 @@ package com.cmms.servicedesk.service;
 import com.cmms.servicedesk.model.Oficina;
 import com.cmms.servicedesk.repository.IOficinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class OficinaService implements ICRUDService<Oficina>{
 
     @Override
     public List<Oficina> findAll() {
-        return oficinaRepository.findAll();
+        return oficinaRepository.findAll(Sort.by(Sort.Direction.ASC, "oficina"));
     }
 
     @Override
