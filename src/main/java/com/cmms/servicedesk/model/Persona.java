@@ -46,9 +46,8 @@ public class Persona {
     @Column(name = "s_usuario" , length = 8 , columnDefinition = "char(8)",unique = true)
     private String usuario;
 
-    @NotNull(message = "El campo password no puede ser null")
-    @NotBlank(message = "El campo password minimo tiene que tener 7 carateres")
-    @Size(min = 6 , max = 20, message = "El campo password minimo tiene que tener 6 carateres")
+    @NotBlank(message = "El campo password minimo tiene que tener 6 carateres")
+    @Size(min = 6, max = 80, message = "El campo password minimo tiene que tener 6 carateres")
     @Column(name = "s_password")
     private String password;
 
