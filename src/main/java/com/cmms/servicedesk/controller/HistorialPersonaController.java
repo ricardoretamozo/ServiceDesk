@@ -36,18 +36,26 @@ public class HistorialPersonaController {
 
     @PostMapping("/save")
     public ResponseEntity<HistorialPersona> create(@Valid @RequestBody HistorialPersona historialPersona){
+        System.out.println(historialPersona.getOficina());
+        System.out.println(historialPersona.getCargo());
+        System.out.println(historialPersona.getCargo().getIdCargo());
         historialPersonaService.findByPersonaAndActivo(historialPersona.getPersona(),'S')
                 .map(h -> {
+
+                    if (historialPersona.getOficina().getIdOficina() != null || historialPersona.getCargo().getIdCargo() != null){
+                        System.out.println("Ingreso");
+                        if (historialPersona.getCargo().getIdCargo() == null){
+                            historialPersona.setCargo(h.getCargo());
+                        }
+                        if ( historialPersona.getOficina().getIdOficina() == null){
+                            historialPersona.setOficina(h.getOficina());
+                        }
+                    }
+                    historialPersonaService.create(historialPersona);
+                    System.out.println("PASÓ EL CREATE");
                     h.setActivo('N');
                     h.setTerminaCargo(historialPersona.getIniciaCargo());
                     historialPersonaService.update(h);
-                    if (historialPersona.getCargo() == null){
-                        historialPersona.setCargo(h.getCargo());
-                    }
-                    if ( historialPersona.getOficina() == null){
-                        historialPersona.setOficina(h.getOficina());
-                    }
-                    historialPersonaService.create(historialPersona);
                     return ResponseEntity.ok(h);
                 })
                 .orElseGet(() -> {
