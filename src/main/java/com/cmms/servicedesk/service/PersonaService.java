@@ -61,14 +61,14 @@ public class PersonaService implements IPersonaService, UserDetailsService {
     }
 
     @Override
-    public Persona findByDni(String dni) {
+    public Optional<Persona> findByDni(String dni) {
         return personaRepository.findByDni(dni);
     }
 
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Persona usuario = personaRepository.findByDni(username);
+        Persona usuario = personaRepository.findByDni(username).get();
         if (usuario == null){
             log.error("User not found in the database");
             throw new UsernameNotFoundException("User not found in the database");

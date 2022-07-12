@@ -45,6 +45,12 @@ public class PersonaController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+    @GetMapping("/personas/dni/{dni}")
+    public ResponseEntity<Persona> findByDni(@PathVariable("dni") String dni){
+        return personaService.findByDni(dni)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
     @PostMapping("/personas")
     public ResponseEntity<Persona> create(@Valid @RequestBody Persona persona){
@@ -114,7 +120,7 @@ public class PersonaController {
                 JWTVerifier verifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = verifier.verify(refresh_token);
                 String dni = decodedJWT.getSubject();
-                Persona usuario = personaService.findByDni(dni);
+                Persona usuario = personaService.findByDni(dni).get();
                 Collection<PerfilPersona> perfilPersonas = new ArrayList<>();
                 perfilPersonas.add(usuario.getPerfilPersona());
                 String access_token=JWT.create()
