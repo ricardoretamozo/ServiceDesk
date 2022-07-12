@@ -41,6 +41,12 @@ public class HistorialPersonaController {
                     h.setActivo('N');
                     h.setTerminaCargo(historialPersona.getIniciaCargo());
                     historialPersonaService.update(h);
+                    if (historialPersona.getCargo() == null){
+                        historialPersona.setCargo(h.getCargo());
+                    }
+                    if ( historialPersona.getOficina() == null){
+                        historialPersona.setOficina(h.getOficina());
+                    }
                     historialPersonaService.create(historialPersona);
                     return ResponseEntity.ok(h);
                 })
