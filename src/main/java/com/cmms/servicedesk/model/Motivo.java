@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Data
@@ -17,6 +18,7 @@ public class Motivo {
     @Column(name = "n_id_motivo")
     private Integer idMotivo;
 
+    @NotBlank(message = "El motivo debe tener datos")
     @Column(name = "s_motivo")
     private String motivo;
 }

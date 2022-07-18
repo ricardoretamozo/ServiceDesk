@@ -33,4 +33,22 @@ public class MotivoController {
         return new ResponseEntity<>(motivoService.create(motivo), HttpStatus.CREATED);
     }
 
+    @PutMapping
+    public ResponseEntity<Motivo> update(@Valid @RequestBody Motivo motivo){
+        return motivoService.findById(motivo.getIdMotivo())
+                .map(s -> ResponseEntity.ok(motivoService.update(motivo)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Motivo> delete(@PathVariable("id") Integer idMotivo){
+        return motivoService.findById(idMotivo)
+                .map(c -> {
+                    Motivo motivo = c;
+                    motivoService.delete(idMotivo);
+                    return ResponseEntity.ok(motivo);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
 }

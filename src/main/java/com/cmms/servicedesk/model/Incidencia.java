@@ -35,7 +35,7 @@ public class Incidencia {
     private Persona persona;
 
     @ManyToOne
-    @JoinColumn(name = "n_id_oficina", nullable = false, columnDefinition = "smallint")
+    @JoinColumn(name = "n_id_oficina", nullable = true, columnDefinition = "smallint")
     private Oficina oficina;
 
     @ManyToOne
