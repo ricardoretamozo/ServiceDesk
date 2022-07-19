@@ -9,4 +9,12 @@ import java.util.List;
 
 public interface IIncidenciaRepository extends JpaRepository<Incidencia, Integer> {
     List<Incidencia> findByPersona(Persona persona);
+
+    List<Incidencia> findByPersona_asignado(Persona persona);
+
+    List<Incidencia> findByPersona_asignadoIsNull();
+
+    List<Incidencia> findByPersona_asignadoIsNotNull();
+
+
 }

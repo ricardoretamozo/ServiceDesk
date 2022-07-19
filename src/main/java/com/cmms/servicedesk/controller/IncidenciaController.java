@@ -47,6 +47,26 @@ public class IncidenciaController {
         return ResponseEntity.ok(incidencia);
     }
 
+    @GetMapping("/persona/asignado/{id}")
+    public ResponseEntity<List<Incidencia>> findByPersonaAsignado(@PathVariable("id") Integer idPersona){
+        Persona persona = personaService.findById(idPersona).get();
+        List<Incidencia> incidencia = incidenciaService.findByPersona_asignado(persona);
+        return ResponseEntity.ok(incidencia);
+    }
+
+    @GetMapping("/persona/asignados")
+    public ResponseEntity<List<Incidencia>> findByPersonaAsignados(){
+        List<Incidencia> incidencia = incidenciaService.findByPersona_asignadoIsNotNull();
+        return ResponseEntity.ok(incidencia);
+    }
+
+    @GetMapping("/persona/noasignados")
+    public ResponseEntity<List<Incidencia>> findByPersonaNoAsignados(){
+        List<Incidencia> incidencia = incidenciaService.findByPersona_asignadoIsNull();
+        return ResponseEntity.ok(incidencia);
+    }
+
+
     @PostMapping("/usuariocomun")
     public ResponseEntity<Incidencia> createusuario(@Valid @RequestBody Incidencia incidencia){
         Persona persona = incidencia.getPersona();
