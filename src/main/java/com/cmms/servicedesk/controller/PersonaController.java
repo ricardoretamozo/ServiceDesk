@@ -4,9 +4,12 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.cmms.servicedesk.model.EstadoTecnico;
 import com.cmms.servicedesk.model.PerfilPersona;
 import com.cmms.servicedesk.model.Persona;
 import com.cmms.servicedesk.model.User;
+import com.cmms.servicedesk.service.EstadoTecnicoService;
+import com.cmms.servicedesk.service.IEstadoTecnicoService;
 import com.cmms.servicedesk.service.PersonaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,8 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 public class PersonaController {
     @Autowired
     private PersonaService personaService;
+    @Autowired
+    private EstadoTecnicoService estadoTecnicoService;
 
     @GetMapping("/personas")
     public ResponseEntity<List<Persona>> findAll(){
@@ -54,7 +59,14 @@ public class PersonaController {
 
     @PostMapping("/personas")
     public ResponseEntity<Persona> create(@Valid @RequestBody Persona persona){
-        return new ResponseEntity<>(personaService.create(persona), HttpStatus.CREATED);
+        Persona persona1 = personaService.create(persona);
+        boolean esTecnico = persona1.getPerfilPersona().getIdPerfilPersona() == 3;
+        if(esTecnico) {
+            EstadoTecnico estadoTecnico = new EstadoTecnico(null,persona1,'D');
+            estadoTecnicoService.create(estadoTecnico);
+        }
+        System.out.println(persona.getPerfilPersona());
+        return new ResponseEntity<>(persona1, HttpStatus.CREATED);
     }
 
     @PostMapping("/personas/register")

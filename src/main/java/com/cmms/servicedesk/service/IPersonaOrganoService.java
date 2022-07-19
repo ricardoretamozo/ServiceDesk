@@ -21,4 +21,6 @@ public interface IPersonaOrganoService {
 
     Optional<PersonaOrgano> findByPersonaAndOrgano(Persona persona, Organo organo);
 
+    List<PersonaOrgano> findByOrgano(Organo organo);
+
 }

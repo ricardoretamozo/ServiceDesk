@@ -43,7 +43,7 @@ public class Incidencia {
     private Persona persona_registro;
 
     @ManyToOne
-    @JoinColumn(name = "n_id_persona_asignado", nullable = false)
+    @JoinColumn(name = "n_id_persona_asignado", nullable = true)
     private Persona persona_asignado;
 
     @ManyToOne

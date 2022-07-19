@@ -45,4 +45,9 @@ public class PersonaOrganoService implements IPersonaOrganoService{
         return personaOrganoRepository.findByPersonaAndOrgano(persona,organo);
     }
 
+    @Override
+    public List<PersonaOrgano> findByOrgano(Organo organo) {
+        return personaOrganoRepository.findByOrgano(organo);
+    }
+
 }

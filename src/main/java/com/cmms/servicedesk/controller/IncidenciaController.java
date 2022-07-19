@@ -1,11 +1,7 @@
 package com.cmms.servicedesk.controller;
 
-import com.cmms.servicedesk.model.HistorialPersona;
-import com.cmms.servicedesk.model.Incidencia;
-import com.cmms.servicedesk.model.Persona;
-import com.cmms.servicedesk.service.HistorialPersonaService;
-import com.cmms.servicedesk.service.IncidenciaService;
-import com.cmms.servicedesk.service.PersonaService;
+import com.cmms.servicedesk.model.*;
+import com.cmms.servicedesk.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +22,12 @@ public class IncidenciaController {
     private PersonaService personaService;
     @Autowired
     private HttpServletRequest request;
+
+    @Autowired
+    private PersonaOrganoService personaOrganoService;
+
+    @Autowired
+    private EstadoTecnicoService estadoTecnicoService;
 
     @GetMapping
     public ResponseEntity<List<Incidencia>> findAll() {
@@ -51,6 +53,35 @@ public class IncidenciaController {
         HistorialPersona historialPersona = historialPersonaService.findByPersonaAndActivo(persona,'S').get();
         incidencia.setOficina(historialPersona.getOficina());
         incidencia.setIp(incidenciaService.getClientIp(request));
+        List<PersonaOrgano> personaOrgano = personaOrganoService.findByOrgano(historialPersona.getOficina().getOrgano());
+        if (personaOrgano.size() == 0){
+            incidencia.setPersona_asignado(null);
+        }else {
+            for (PersonaOrgano personaOrgano1:personaOrgano ) {
+                if (estadoTecnicoService.findByPersonaAndActivo(personaOrgano1.getPersona(),'A').size() == 1){
+                    incidencia.setPersona_asignado(personaOrgano1.getPersona());
+                    estadoTecnicoService.findByPersonaAndActivo(personaOrgano1.getPersona(),'A').get(0).setActivo('N');
+                    break;
+                }
+            };
+            if (incidencia.getPersona_asignado() == null){
+                for (EstadoTecnico estadoTecnico:estadoTecnicoService.findByActivo('N')) {
+                    for (PersonaOrgano personaOrgano1:personaOrgano ) {
+                     if (estadoTecnicoService.findByPersona(personaOrgano1.getPersona()).size() == 1){
+                         estadoTecnico.setActivo('S');
+                     }
+                    }
+                }
+                for (PersonaOrgano personaOrgano1:personaOrgano ) {
+                    if (estadoTecnicoService.findByPersonaAndActivo(personaOrgano1.getPersona(),'A').size() == 1){
+                        incidencia.setPersona_asignado(personaOrgano1.getPersona());
+                        estadoTecnicoService.findByPersonaAndActivo(personaOrgano1.getPersona(),'A').get(0).setActivo('N');
+                        break;
+                    }
+                };
+            }
+
+        }
         return new ResponseEntity<>(incidenciaService.create(incidencia), HttpStatus.CREATED);
     }
 
