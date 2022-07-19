@@ -64,7 +64,7 @@ public class IncidenciaController {
                     estadoTecnicoService.findByPersonaAndActivo(personaOrgano1.getPersona(),'A').get(0).setActivo('N');
                     break;
                 }
-            };
+            }
             if (incidencia.getPersona_asignado() == null){
                 for (EstadoTecnico estadoTecnico:estadoTecnicoService.findByActivo('N')) {
                     for (PersonaOrgano personaOrgano1:personaOrgano ) {
@@ -73,15 +73,16 @@ public class IncidenciaController {
                      }
                     }
                 }
+            }
+            if (incidencia.getPersona_asignado() == null){
                 for (PersonaOrgano personaOrgano1:personaOrgano ) {
                     if (estadoTecnicoService.findByPersonaAndActivo(personaOrgano1.getPersona(),'A').size() == 1){
                         incidencia.setPersona_asignado(personaOrgano1.getPersona());
                         estadoTecnicoService.findByPersonaAndActivo(personaOrgano1.getPersona(),'A').get(0).setActivo('N');
                         break;
                     }
-                };
+                }
             }
-
         }
         return new ResponseEntity<>(incidenciaService.create(incidencia), HttpStatus.CREATED);
     }
