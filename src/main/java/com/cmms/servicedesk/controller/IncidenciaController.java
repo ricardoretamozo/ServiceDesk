@@ -53,7 +53,6 @@ public class IncidenciaController {
         HistorialPersona historialPersona = historialPersonaService.findByPersonaAndActivo(persona,'S').get();
         incidencia.setOficina(historialPersona.getOficina());
         incidencia.setIp(incidenciaService.getClientIp(request));
-        incidencia.setPersona_asignado(null);
         List<PersonaOrgano> personaOrgano = personaOrganoService.findByOrgano(historialPersona.getOficina().getOrgano());
         if (personaOrgano.size() == 0){
             incidencia.setPersona_asignado(null);
@@ -69,16 +68,14 @@ public class IncidenciaController {
                 for (EstadoTecnico estadoTecnico:estadoTecnicoService.findByActivo('N')) {
                     for (PersonaOrgano personaOrgano1:personaOrgano ) {
                      if (estadoTecnicoService.findByPersona(personaOrgano1.getPersona()).size() == 1){
-                         estadoTecnico.setActivo('S');
+                         estadoTecnico.setActivo('A');
                      }
                     }
                 }
-            }
-            if (incidencia.getPersona_asignado() == null){
                 for (PersonaOrgano personaOrgano1:personaOrgano ) {
-                    if (estadoTecnicoService.findByPersonaAndActivo(personaOrgano1.getPersona(),'A').size() == 1){
+                    if (estadoTecnicoService.findByPersona(personaOrgano1.getPersona()).size() == 1){
                         incidencia.setPersona_asignado(personaOrgano1.getPersona());
-                        estadoTecnicoService.findByPersonaAndActivo(personaOrgano1.getPersona(),'A').get(0).setActivo('N');
+                        estadoTecnicoService.findByPersona(personaOrgano1.getPersona()).get(0).setActivo('N');
                         break;
                     }
                 }

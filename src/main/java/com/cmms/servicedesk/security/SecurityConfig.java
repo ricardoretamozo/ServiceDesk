@@ -43,8 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers("/api/login/**", "/api/refreshtoken/**", "/api/personas/register","/api/personas/dni/**").permitAll();
         http.authorizeRequests().antMatchers("/api/personas/**", "/api/soporteTecnicoSede/**").hasAnyAuthority("SOPORTE TECNICO","ASISTENTE INFORMATICO","COORDINADOR INFORMATICO");
-        http.authorizeRequests().antMatchers("/api/historialpersonas/**", "/api/sedes/listAll", "/api/organos/listAll", "/api/oficinas/listall/**/**", "/api/cargos/listall/**/**").hasAnyAuthority("USUARIO COMUN", "COORDINADOR INFORMATICO");
-        http.authorizeRequests().antMatchers("/api/**").hasAnyAuthority("COORDINADOR INFORMATICO", "USUARIO COMUN");
+        http.authorizeRequests().antMatchers("/api/historialpersonas/**", "/api/sedes/listAll", "/api/organos/listAll", "/api/oficinas/listall/**/**", "/api/cargos/listall/**/**").hasAnyAuthority("USUARIO COMUN", "COORDINADOR INFORMATICO", "ASISTENTE INFORMATICO");
+        http.authorizeRequests().antMatchers("/api/**").hasAnyAuthority("COORDINADOR INFORMATICO", "USUARIO COMUN","ASISTENTE INFORMATICO", "SOPORTE TECNICO");
         http.authorizeRequests().anyRequest().permitAll();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

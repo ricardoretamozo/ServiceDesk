@@ -62,7 +62,7 @@ public class PersonaController {
         Persona persona1 = personaService.create(persona);
         boolean esTecnico = persona1.getPerfilPersona().getIdPerfilPersona() == 3;
         if(esTecnico) {
-            EstadoTecnico estadoTecnico = new EstadoTecnico(null,persona1,'D');
+            EstadoTecnico estadoTecnico = new EstadoTecnico(null,persona1,'A');
             estadoTecnicoService.create(estadoTecnico);
         }
         System.out.println(persona.getPerfilPersona());
