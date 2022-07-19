@@ -53,6 +53,7 @@ public class IncidenciaController {
         HistorialPersona historialPersona = historialPersonaService.findByPersonaAndActivo(persona,'S').get();
         incidencia.setOficina(historialPersona.getOficina());
         incidencia.setIp(incidenciaService.getClientIp(request));
+        incidencia.setPersona_asignado(null);
         List<PersonaOrgano> personaOrgano = personaOrganoService.findByOrgano(historialPersona.getOficina().getOrgano());
         if (personaOrgano.size() == 0){
             incidencia.setPersona_asignado(null);
