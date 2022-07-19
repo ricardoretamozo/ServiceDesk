@@ -113,7 +113,7 @@ public class IncidenciaController {
     }
 
     @PutMapping("asignacion/{id}")
-    public ResponseEntity<Incidencia> updateAsignacion(@PathVariable("id") Integer idIncidencia, @Valid @RequestBody Persona persona){
+    public ResponseEntity<Incidencia> updateAsignacion(@PathVariable("id") Integer idIncidencia,@RequestBody Persona persona){
         Incidencia incidencia = incidenciaService.findById(idIncidencia).get();
         Persona persona1 = personaService.findById(persona.getIdpersona()).get();
         incidencia.setPersona_asignado(persona1);
