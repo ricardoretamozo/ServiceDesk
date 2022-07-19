@@ -86,7 +86,7 @@ public class IncidenciaService implements IIncidenciaService{
 
     @Override
     public List<Incidencia> findByPersona_asignado(Persona persona) {
-        return incidenciaRepository.findByPersona_asignado(persona);
+        return incidenciaRepository.findByPersonaAsignado(persona);
     }
 
     @Override
