@@ -53,6 +53,17 @@ public class CorreoController {
         return correoRepository.findByActivo('N');
     }
 
+    @PutMapping("/leido/{id}")
+    public ResponseEntity<Correo> updateLeido(@PathVariable("id") Integer idCorreo) {
+        return correoRepository.findById(idCorreo)
+                .map(o -> {
+                    o.setActivo('N');
+                    correoRepository.save(o);
+                    return ResponseEntity.ok(o);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     @RequestMapping("/listall/{id}/persona/from")
     public List<Correo> findByPersonaFrom(@PathVariable("id") Integer idPersona) {
         Persona persona = personaController.findById(idPersona).getBody();
