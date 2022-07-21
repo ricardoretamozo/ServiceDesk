@@ -48,6 +48,11 @@ public class CorreoController {
         return correoRepository.findByActivo('A');
     }
 
+    @RequestMapping("/listall/desactivado")
+    public List<Correo> findByDesactivado() {
+        return correoRepository.findByActivo('N');
+    }
+
     @RequestMapping("/listall/{id}/persona/from")
     public List<Correo> findByPersonaFrom(@PathVariable("id") Integer idPersona) {
         Persona persona = personaController.findById(idPersona).getBody();
