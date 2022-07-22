@@ -50,8 +50,12 @@ public class PersonaService implements IPersonaService, UserDetailsService {
     }
 
     @Override
-    public Persona update(Persona cliente) {
-        cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
+    public Persona update(Persona cliente , Boolean eliminar) {
+
+        if(!eliminar) {
+            log.info("Se cifro la contraseña");
+            cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
+        }
         return personaRepository.save(cliente);
     }
 

@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +43,7 @@ public class PersonaController {
 
     @Autowired
     private PersonaOrganoService personaOrganoService;
+
 
     @GetMapping("/personas")
     public ResponseEntity<List<Persona>> findAll(){
@@ -95,7 +97,7 @@ public class PersonaController {
                         }
                     }
 
-                    return ResponseEntity.ok(personaService.update(persona));
+                    return ResponseEntity.ok(personaService.update(persona, false));
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -118,7 +120,7 @@ public class PersonaController {
                         EstadoTecnico estadoTecnico = new EstadoTecnico(null,c,'A');
                         estadoTecnicoService.create(estadoTecnico);
                     }
-                    personaService.update(c);
+                    personaService.update(c, true);
                     return ResponseEntity.ok(c);
                 })
                 .orElseGet(()-> ResponseEntity.notFound().build());

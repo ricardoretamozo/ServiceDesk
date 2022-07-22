@@ -21,14 +21,16 @@ public class SedeController {
     private SedeService sedeService;
     @Autowired
     private OrganoService organoService;
-    @Autowired
-    private OficinaService oficinaService;
 
     @GetMapping
     public ResponseEntity<List<Sede>> findAll(){
         return ResponseEntity.ok(sedeService.findAll());
     }
 
+    @GetMapping(path = "listall/active")
+    public ResponseEntity<List<Sede>> findByActive(){
+        return ResponseEntity.ok(sedeService.findByActive());
+    }
 
     @GetMapping(path = "/completo")
     public Map findCompleto(){

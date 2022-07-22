@@ -30,7 +30,7 @@ public class ServiceDeskApplication {
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-    /*
+
     @Bean
     CommandLineRunner run(PerfilPersonaService perfilService, PersonaService personaService) {
         return args -> {
@@ -45,11 +45,11 @@ public class ServiceDeskApplication {
 //            perfilService.create(perfil3);
 //            perfilService.create(perfil4);
 
-            personaService.update(new Persona(1, "Juan","apellido","73824465", "73824465", "cocacola", "usuario@gmail.com","942035699",null,'M','A',perfil1));
+            personaService.update(new Persona(1, "Juan","apellido","73824465", "73824465", "cocacola", "usuario@gmail.com","942035699",null,'M','A',perfil1),false);
 //            personaService.create(new Persona(null, "Roberto","apellido","83824465","83824465","cocacola","juan@gmail.com","942035690",null,'M','A',perfil2));
 //            personaService.create(new Persona(null, "Gabriel","apellido","93824465","93824465","cocacola","carlos@gmail.com","942035691",null,'M','A',perfil3));
 //            personaService.create(new Persona(null, "Carlos","apellido","13824465","13824465","cocacola","gabriel@gmail.com","942035693",null,'M','A',perfil4));
 
         };
-    }*/
+    }
 }

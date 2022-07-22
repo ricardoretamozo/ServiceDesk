@@ -38,4 +38,9 @@ public class SedeService implements ISedeService{
     public void delete(Integer id) {
         sedeRepository.deleteById(id);
     }
+
+    @Override
+    public List<Sede> findByActive() {
+        return sedeRepository.findByActivo('S');
+    }
 }

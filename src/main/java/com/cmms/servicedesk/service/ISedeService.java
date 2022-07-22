@@ -16,4 +16,6 @@ public interface ISedeService {
     Sede update(Sede sede);
 
     void delete(Integer id);
+
+    List<Sede> findByActive();
 }

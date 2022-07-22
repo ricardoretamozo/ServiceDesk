@@ -12,7 +12,7 @@ public interface IPersonaService {
 
     Persona create(Persona cliente);
 
-    Persona update(Persona cliente);
+    Persona update(Persona cliente, Boolean eliminar);
 
     void delete(Integer id);
 
