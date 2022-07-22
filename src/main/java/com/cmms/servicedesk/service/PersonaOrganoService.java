@@ -50,4 +50,9 @@ public class PersonaOrganoService implements IPersonaOrganoService{
         return personaOrganoRepository.findByOrgano(organo);
     }
 
+    @Override
+    public void deleteByPersona(Persona persona) {
+        personaOrganoRepository.deleteByPersona(persona);
+    }
+
 }

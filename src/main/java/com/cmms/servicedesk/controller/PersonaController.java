@@ -8,9 +8,7 @@ import com.cmms.servicedesk.model.EstadoTecnico;
 import com.cmms.servicedesk.model.PerfilPersona;
 import com.cmms.servicedesk.model.Persona;
 import com.cmms.servicedesk.model.User;
-import com.cmms.servicedesk.service.EstadoTecnicoService;
-import com.cmms.servicedesk.service.IEstadoTecnicoService;
-import com.cmms.servicedesk.service.PersonaService;
+import com.cmms.servicedesk.service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,6 +36,12 @@ public class PersonaController {
     private PersonaService personaService;
     @Autowired
     private EstadoTecnicoService estadoTecnicoService;
+
+    @Autowired
+    private PerfilPersonaService perfilPersonaService;
+
+    @Autowired
+    private PersonaOrganoService personaOrganoService;
 
     @GetMapping("/personas")
     public ResponseEntity<List<Persona>> findAll(){
@@ -77,7 +81,22 @@ public class PersonaController {
     @PutMapping("/personas")
     public ResponseEntity<Persona> update(@Valid @RequestBody Persona persona){
         return personaService.findById(persona.getIdpersona())
-                .map(c->ResponseEntity.ok(personaService.update(persona)))
+                .map(c -> {
+
+                    if (perfilPersonaService.findById(persona.getPerfilPersona().getIdPerfilPersona()).get().getPerfil().equals("SOPORTE TECNICO")) {
+                        EstadoTecnico estadoTecnico = new EstadoTecnico(null,c,'A');
+                        estadoTecnicoService.create(estadoTecnico);
+                    }else{
+                        if (estadoTecnicoService.findByPersona(c).size() == 1) {
+                            estadoTecnicoService.delete(estadoTecnicoService.findByPersona(c).get(0).getIdHistorialPersona());
+                            if (personaOrganoService.findByPersona(c).size() > 0) {
+                                personaOrganoService.deleteByPersona(c);
+                            }
+                        }
+                    }
+
+                    return ResponseEntity.ok(personaService.update(persona));
+                })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -88,7 +107,17 @@ public class PersonaController {
                     char activo = c.getActivo();
                     if(activo == 'S'){
                         c.setActivo('N');
-                    }else {c.setActivo('S');}
+                        if (estadoTecnicoService.findByPersona(c).size() == 1) {
+                            estadoTecnicoService.delete(estadoTecnicoService.findByPersona(c).get(0).getIdHistorialPersona());
+                            if (personaOrganoService.findByPersona(c).size() > 0) {
+                                personaOrganoService.deleteByPersona(c);
+                            }
+                        }
+                    }else {
+                        c.setActivo('S');
+                        EstadoTecnico estadoTecnico = new EstadoTecnico(null,c,'A');
+                        estadoTecnicoService.create(estadoTecnico);
+                    }
                     personaService.update(c);
                     return ResponseEntity.ok(c);
                 })

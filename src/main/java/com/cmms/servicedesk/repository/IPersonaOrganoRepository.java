@@ -14,4 +14,6 @@ public interface IPersonaOrganoRepository extends JpaRepository<PersonaOrgano, I
     Optional<PersonaOrgano> findByPersonaAndOrgano(Persona persona, Organo organo);
 
     List<PersonaOrgano> findByOrgano(Organo organo);
+
+    void deleteByPersona(Persona persona);
 }

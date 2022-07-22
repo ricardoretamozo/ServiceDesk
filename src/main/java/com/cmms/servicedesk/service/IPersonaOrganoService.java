@@ -23,4 +23,6 @@ public interface IPersonaOrganoService {
 
     List<PersonaOrgano> findByOrgano(Organo organo);
 
+    void deleteByPersona(Persona persona);
+
 }
