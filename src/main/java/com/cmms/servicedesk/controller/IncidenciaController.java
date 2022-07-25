@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @RestController
@@ -101,10 +103,11 @@ public class IncidenciaController {
                 }
             }
         }
+        incidencia.setFecha(ZonedDateTime.now());
         return new ResponseEntity<>(incidenciaService.create(incidencia), HttpStatus.CREATED);
     }
 
-    @PostMapping
+    @PostMapping(path = "/cordinador")
     public ResponseEntity<Incidencia> create(@Valid @RequestBody Incidencia incidencia){
         Persona persona = incidencia.getPersona_registro();
         HistorialPersona historialPersona = historialPersonaService.findByPersonaAndActivo(persona,'S').get();

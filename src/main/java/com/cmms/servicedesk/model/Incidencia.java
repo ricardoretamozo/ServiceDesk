@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
 
 @Entity
 @Data
@@ -25,7 +27,7 @@ public class Incidencia {
     private char estado;
 
     @Column(name = "f_sistema_registro", nullable = false)
-    private LocalDate fecha;
+    private ZonedDateTime fecha;
 
     @Column(name = "s_ip_pc_registro", nullable = false)
     private String ip;
