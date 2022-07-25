@@ -30,6 +30,9 @@ public class Incidencia {
     @Column(name = "s_ip_pc_registro", nullable = false)
     private String ip;
 
+    @Column(name = "s_origen", nullable = false)
+    private String origen;
+
     @ManyToOne
     @JoinColumn(name = "n_id_persona", nullable = false)
     private Persona persona;
