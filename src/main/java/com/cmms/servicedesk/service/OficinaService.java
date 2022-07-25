@@ -39,4 +39,9 @@ public class OficinaService implements ICRUDService<Oficina>{
     public void delete(Integer id) {
         oficinaRepository.deleteById(id);
     }
+
+    @Override
+    public List<Oficina> findByActivo() {
+        return oficinaRepository.findByActivo('S');
+    }
 }

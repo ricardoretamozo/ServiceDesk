@@ -37,4 +37,9 @@ public class CargoService implements ICRUDService<Cargo>{
     public void delete(Integer id) {
         cargoRepository.deleteById(id);
     }
+
+    @Override
+    public List<Cargo> findByActivo() {
+        return null;
+    }
 }

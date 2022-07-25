@@ -17,4 +17,6 @@ public interface ICRUDService<T> {
 
     void delete(Integer id);
 
+    List<T> findByActivo();
+
 }

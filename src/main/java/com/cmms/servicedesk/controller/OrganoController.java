@@ -54,4 +54,9 @@ public class OrganoController {
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @GetMapping(path = "listall/active")
+    public ResponseEntity<List<Organo>> findByActive(){
+        return ResponseEntity.ok(organoService.findByActive());
+    }
 }

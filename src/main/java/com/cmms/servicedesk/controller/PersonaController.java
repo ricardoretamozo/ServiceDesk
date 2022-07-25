@@ -86,7 +86,7 @@ public class PersonaController {
                 .map(c -> {
 
                     if (perfilPersonaService.findById(persona.getPerfilPersona().getIdPerfilPersona()).get().getPerfil().equals("SOPORTE TECNICO")) {
-                        EstadoTecnico estadoTecnico = new EstadoTecnico(null,c,'A');
+                        EstadoTecnico estadoTecnico = new EstadoTecnico(null,c,'S');
                         estadoTecnicoService.create(estadoTecnico);
                     }else{
                         if (estadoTecnicoService.findByPersona(c).size() == 1) {

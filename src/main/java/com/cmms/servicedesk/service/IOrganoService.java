@@ -18,4 +18,6 @@ public interface IOrganoService {
 
     void delete(Integer id);
 
+    List<Organo> findByActive();
+
 }

@@ -60,4 +60,9 @@ public class OficinaController {
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @GetMapping(path = "listall/active")
+    public ResponseEntity<List<Oficina>> findByActivo(){
+        return ResponseEntity.ok(oficinaService.findByActivo());
+    }
 }

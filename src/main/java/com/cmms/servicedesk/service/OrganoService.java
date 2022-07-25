@@ -43,4 +43,9 @@ public class OrganoService implements IOrganoService{
     public void delete(Integer id) {
         organoRepository.deleteById(id);
     }
+
+    @Override
+    public List<Organo> findByActive() {
+        return organoRepository.findByActivo('S');
+    }
 }

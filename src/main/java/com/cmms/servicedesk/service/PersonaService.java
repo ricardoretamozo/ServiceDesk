@@ -76,12 +76,15 @@ public class PersonaService implements IPersonaService, UserDetailsService {
         if (usuario == null){
             log.error("User not found in the database");
             throw new UsernameNotFoundException("User not found in the database");
-        }else {
+        } else {
             log.info("User found in the database: {}", username);
+        }
+        if (usuario.getActivo() == 'N') {
+            log.error("Usuario inactivo");
+            throw new UsernameNotFoundException("Usuario inactivo");
         }
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        //usuario.getPerfilPersona().forEach(perfilPersona -> authorities.add(new SimpleGrantedAuthority(perfilPersona.getNombre())));
         authorities.add(new SimpleGrantedAuthority(usuario.getPerfilPersona().getPerfil()));
         return new User(usuario.getDni(), usuario.getPassword(),authorities, usuario.getNombre()+" "+usuario.getApellido(), usuario.getIdpersona());
     }

@@ -40,5 +40,10 @@ public class SoporteTecnicoSedeService implements ICRUDService<SoporteTecnicoSed
         soporteTecnicoSede.deleteById(id);
     }
 
+    @Override
+    public List<SoporteTecnicoSede> findByActivo() {
+        return null;
+    }
+
 
 }

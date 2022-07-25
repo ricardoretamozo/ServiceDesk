@@ -35,10 +35,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private PersonaService personaService;
-
     public CustomAuthenticationFilter(AuthenticationManager authenticationManager){
+        log.info("CustomAuthenticationFilter");
         this.authenticationManager = authenticationManager;
     }
 
