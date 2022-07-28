@@ -123,4 +123,12 @@ public class IncidenciaController {
         return new ResponseEntity<>(incidenciaService.update(incidencia), HttpStatus.OK);
     }
 
+    @PutMapping("tramite/{id}")
+    public ResponseEntity<Incidencia> updateStatusIncidencia(@PathVariable("id") Integer idIncidencia){
+        Incidencia incidencia = incidenciaService.findById(idIncidencia).get();
+        incidencia.setEstado('T');
+        incidencia.setFecha(ZonedDateTime.now());
+        return new ResponseEntity<>(incidenciaService.update(incidencia), HttpStatus.OK);
+    }
+
 }
