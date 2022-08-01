@@ -36,7 +36,13 @@ public class IncidenciaController {
 
     @GetMapping
     public ResponseEntity<List<Incidencia>> findAll() {
-        return ResponseEntity.ok(incidenciaService.findAll());
+        List<Incidencia> incidencias = incidenciaService.findAll();
+        incidencias.forEach(incidencia -> {
+            HistorialIncidencia historialIncidencia = historialIncidenciaService.findByIncidencia(incidencia);
+            historialIncidencia.setIncidencia(null);
+            incidencia.setHistorialIncidencia(historialIncidencia);
+        });
+        return ResponseEntity.ok(incidencias);
     }
 
     @GetMapping("/persona/detalles/{id}")
@@ -55,8 +61,13 @@ public class IncidenciaController {
     @GetMapping("/persona/{id}")
     public ResponseEntity<List<Incidencia>> findByPersona(@PathVariable("id") Integer idPersona){
         Persona persona = personaService.findById(idPersona).get();
-        List<Incidencia> incidencia = incidenciaService.findByPersona(persona);
-        return ResponseEntity.ok(incidencia);
+        List<Incidencia> incidencias = incidenciaService.findByPersona(persona);
+        incidencias.forEach(incidencia -> {
+            HistorialIncidencia historialIncidencia = historialIncidenciaService.findByIncidencia(incidencia);
+            historialIncidencia.setIncidencia(null);
+            incidencia.setHistorialIncidencia(historialIncidencia);
+        });
+        return ResponseEntity.ok(incidencias);
     }
 
     @GetMapping("/persona/asignado/{id}")
