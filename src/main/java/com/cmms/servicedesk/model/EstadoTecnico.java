@@ -17,7 +17,7 @@ public class EstadoTecnico {
     private Integer idHistorialPersona;
 
     @ManyToOne
-    @JoinColumn(name = "n_id_persona", nullable = false)
+    @JoinColumn(name = "n_id_persona", nullable = false , unique = true)
     private Persona persona;
 
     @Column(name = "s_activo", length = 1, columnDefinition = "char(1)")

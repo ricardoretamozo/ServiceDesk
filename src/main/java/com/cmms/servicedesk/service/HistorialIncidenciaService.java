@@ -59,7 +59,7 @@ public class HistorialIncidenciaService implements IHistorialIncidenciaService {
 
     @Override
     public HistorialIncidencia findByIncidencia(Incidencia incidencia) {
-        return historialIncidenciaRepository.findByIncidenciaAndEstadoIncidencia(incidencia, 'A');
+        return historialIncidenciaRepository.findByIncidenciaAndEstado(incidencia, 'A');
     }
 
 }

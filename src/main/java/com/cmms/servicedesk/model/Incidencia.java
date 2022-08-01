@@ -3,16 +3,9 @@ package com.cmms.servicedesk.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZonedDateTime;
+
 
 @Entity
 @Data
@@ -28,8 +21,9 @@ public class Incidencia {
     @Column(name = "s_descripcion", length = 400)
     private String descripcion;
 
-    @Column(name = "s_origen", nullable = false)
-    private String origen;
+    @ManyToOne
+    @JoinColumn(name = "n_id_origen", nullable = false)
+    private OrigenIncidencia origen;
 
     @ManyToOne
     @JoinColumn(name = "n_id_persona", nullable = false)
@@ -45,4 +39,5 @@ public class Incidencia {
 
     @Transient
     private HistorialIncidencia historialIncidencia;
+
 }

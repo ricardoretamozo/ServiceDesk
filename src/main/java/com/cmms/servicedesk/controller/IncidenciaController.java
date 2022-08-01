@@ -67,6 +67,7 @@ public class IncidenciaController {
         List<HistorialIncidencia> historialIncidencia = historialIncidenciaService.findByPersona_asignadoIsNotNull();
         System.out.println(historialIncidencia.size());
         List<Incidencia> incidencia = historialIncidencia.stream().map(HistorialIncidencia::getIncidencia).collect(java.util.stream.Collectors.toList());
+        System.out.println(incidencia.size());
         incidencia.stream().forEach(i -> {
             HistorialIncidencia historialIncidencia1 = historialIncidenciaService.findByIncidencia(i);
             historialIncidencia1.setIncidencia(null);
@@ -141,39 +142,50 @@ public class IncidenciaController {
                 }
             }
         }
-        historialIncidencia.setEstadoIncidencia('A');
-        historialIncidencia.setEstado('P');
+        historialIncidencia.setEstadoIncidencia('P');
+        historialIncidencia.setEstado('A');
         incidencia.setHistorialIncidencia(historialIncidencia);
         Incidencia incidencia1 = incidenciaService.create(incidencia);
         historialIncidencia.setIncidencia(incidencia1);
         historialIncidenciaService.create(historialIncidencia);
         historialIncidencia.setIncidencia(null);
-        //incidencia.setFecha(ZonedDateTime.now());
         return new ResponseEntity<>(incidencia1, HttpStatus.CREATED);
     }
+    @PutMapping("/asignacion")
+    public ResponseEntity<Incidencia> updateAsignacion(@RequestBody Incidencia incidencia){
+        HistorialIncidencia historialIncidencia = historialIncidenciaService.findByIncidencia(incidencia);
+        historialIncidencia.setEstado('N');
+        historialIncidenciaService.update(historialIncidencia);
+        HistorialIncidencia historialIncidencia1 = new HistorialIncidencia();
+        historialIncidencia1.setIncidencia(incidencia);
+        historialIncidencia1.setFecha(ZonedDateTime.now());
+        historialIncidencia1.setEstadoIncidencia('P');
+        historialIncidencia1.setEstado('A');
+        historialIncidencia1.setPersona_asignado(incidencia.getHistorialIncidencia().getPersona_asignado());
+        historialIncidencia1.setPersona_registro(incidencia.getHistorialIncidencia().getPersona_registro());
+        historialIncidencia1.setIp(incidenciaService.getClientIp(request));
+        historialIncidenciaService.create(historialIncidencia1);
+        return new ResponseEntity<>(incidencia, HttpStatus.OK);
+    }
 
-//    @PostMapping(path = "/cordinador")
-//    public ResponseEntity<Incidencia> create(@Valid @RequestBody Incidencia incidencia){
-//        Persona persona = incidencia.getPersona_registro();
-//        HistorialPersona historialPersona = historialPersonaService.findByPersonaAndActivo(persona,'S').get();
-//        incidencia.setOficina(historialPersona.getOficina());
-//        return new ResponseEntity<>(incidenciaService.create(incidencia), HttpStatus.CREATED);
-//    }
-//
-//    @PutMapping("asignacion/{id}")
-//    public ResponseEntity<Incidencia> updateAsignacion(@PathVariable("id") Integer idIncidencia,@RequestBody Persona persona){
-//        Incidencia incidencia = incidenciaService.findById(idIncidencia).get();
-//        Persona persona1 = personaService.findById(persona.getIdpersona()).get();
-//        incidencia.setPersona_asignado(persona1);
-//        return new ResponseEntity<>(incidenciaService.update(incidencia), HttpStatus.OK);
-//    }
-
-//    @PutMapping("tramite/{id}")
-//    public ResponseEntity<Incidencia> updateStatusIncidencia(@PathVariable("id") Integer idIncidencia){
-//        Incidencia incidencia = incidenciaService.findById(idIncidencia).get();
-//        incidencia.setEstado('T');
-//        incidencia.setFecha(ZonedDateTime.now());
-//        return new ResponseEntity<>(incidenciaService.update(incidencia), HttpStatus.OK);
-//    }
+    @PutMapping("/tramite")
+    public ResponseEntity<Incidencia> updateStatusIncidencia(@RequestBody Incidencia incidencia){
+        System.out.println("Actualizando incidencia");
+        System.out.println(incidencia);
+        HistorialIncidencia historialIncidencia = historialIncidenciaService.findByIncidencia(incidencia);
+        System.out.println(historialIncidencia);
+        historialIncidencia.setEstado('N');
+        historialIncidenciaService.update(historialIncidencia);
+        HistorialIncidencia historialIncidencia1 = new HistorialIncidencia();
+        historialIncidencia1.setIncidencia(incidencia);
+        historialIncidencia1.setFecha(ZonedDateTime.now());
+        historialIncidencia1.setEstadoIncidencia('T');
+        historialIncidencia1.setEstado('A');
+        historialIncidencia1.setPersona_asignado(incidencia.getHistorialIncidencia().getPersona_asignado());
+        historialIncidencia1.setPersona_registro(incidencia.getHistorialIncidencia().getPersona_registro());
+        historialIncidencia1.setIp(incidenciaService.getClientIp(request));
+        historialIncidenciaService.create(historialIncidencia1);
+        return new ResponseEntity<>(incidencia, HttpStatus.OK);
+    }
 
 }
