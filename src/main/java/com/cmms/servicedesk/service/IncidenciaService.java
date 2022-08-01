@@ -84,18 +84,18 @@ public class IncidenciaService implements IIncidenciaService{
         incidenciaRepository.deleteById(id);
     }
 
-    @Override
-    public List<Incidencia> findByPersona_asignado(Persona persona) {
-        return incidenciaRepository.findByPersonaAsignado(persona);
-    }
-
-    @Override
-    public List<Incidencia> findByPersona_asignadoIsNull() {
-        return incidenciaRepository.findByPersona_asignadoIsNull();
-    }
-
-    @Override
-    public List<Incidencia> findByPersona_asignadoIsNotNull() {
-        return incidenciaRepository.findByPersona_asignadoIsNotNull();
-    }
+//    @Override
+//    public List<Incidencia> findByPersona_asignado(Persona persona) {
+//        return incidenciaRepository.findByPersonaAsignado(persona);
+//    }
+//
+//    @Override
+//    public List<Incidencia> findByPersona_asignadoIsNull() {
+//        return incidenciaRepository.findByPersona_asignadoIsNull();
+//    }
+//
+//    @Override
+//    public List<Incidencia> findByPersona_asignadoIsNotNull() {
+//        return incidenciaRepository.findByPersona_asignadoIsNotNull();
+//    }
 }

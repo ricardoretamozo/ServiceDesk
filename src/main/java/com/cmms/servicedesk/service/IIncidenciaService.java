@@ -21,10 +21,10 @@ public interface IIncidenciaService {
 
     void delete(Integer id);
 
-    List<Incidencia> findByPersona_asignado(Persona persona);
-
-    List<Incidencia> findByPersona_asignadoIsNull();
-
-    List<Incidencia> findByPersona_asignadoIsNotNull();
+//    List<Incidencia> findByPersona_asignado(Persona persona);
+//
+//    List<Incidencia> findByPersona_asignadoIsNull();
+//
+//    List<Incidencia> findByPersona_asignadoIsNotNull();
 
 }
