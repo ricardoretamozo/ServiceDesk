@@ -42,7 +42,14 @@ public class IncidenciaController {
     @GetMapping("/persona/detalles/{id}")
     public ResponseEntity<Incidencia> findById(@PathVariable("id") Integer idIncidencia){
         return incidenciaService.findById(idIncidencia)
-                .map(ResponseEntity::ok)
+                .map(
+                        incidencia -> {
+                            HistorialIncidencia historialIncidencia = historialIncidenciaService.findByIncidencia(incidencia);
+                            historialIncidencia.setIncidencia(null);
+                            incidencia.setHistorialIncidencia(historialIncidencia);
+                            return ResponseEntity.ok(incidencia);
+                        }
+                )
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
     @GetMapping("/persona/{id}")
