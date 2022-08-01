@@ -57,7 +57,12 @@ public class IncidenciaController {
         Persona persona = personaService.findById(idPersona).get();
         List<HistorialIncidencia> historialIncidencia = historialIncidenciaService.findByPersonaAsignado(persona);
         List<Incidencia> incidencia = historialIncidencia.stream().map(HistorialIncidencia::getIncidencia).collect(java.util.stream.Collectors.toList());
-        incidencia.stream().forEach(i -> i.setHistorialIncidencia(historialIncidenciaService.findByIncidencia(i)));
+        incidencia.stream().forEach(i -> {
+            HistorialIncidencia historialIncidencia1 = historialIncidenciaService.findByIncidencia(i);
+            historialIncidencia1.setIncidencia(null);
+            i.setHistorialIncidencia(historialIncidencia1);
+        });
+
         return ResponseEntity.ok(incidencia);
     }
 
