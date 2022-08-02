@@ -140,14 +140,16 @@ public class IncidenciaController {
             historialIncidencia.setPersona_asignado(null);
         }else {
             for (PersonaOrgano personaOrgano1:personaOrgano ) {
-                if (estadoTecnicoService.findByPersonaAndActivo(personaOrgano1.getPersona(),'A').size() == 1){
-                    historialIncidencia.setPersona_asignado(personaOrgano1.getPersona());
+                if (historialIncidencia.getPersona_asignado() == null){
+                    if (estadoTecnicoService.findByPersonaAndActivo(personaOrgano1.getPersona(),'A').size() == 1){
+                        historialIncidencia.setPersona_asignado(personaOrgano1.getPersona());
 //                    incidencia.setPersona_asignado(personaOrgano1.getPersona());
-                    estadoTecnicoService.findByPersonaAndActivo(personaOrgano1.getPersona(),'A').get(0).setActivo('N');
-                    break;
+                        estadoTecnicoService.findByPersonaAndActivo(personaOrgano1.getPersona(),'A').get(0).setActivo('N');
+                        break;
+                    }
                 }
             }
-            if (historialIncidencia.getPersona_asignado().getIdpersona() == null){
+            if (historialIncidencia.getPersona_asignado() == null){
                 for (EstadoTecnico estadoTecnico:estadoTecnicoService.findByActivo('N')) {
                     for (PersonaOrgano personaOrgano1:personaOrgano ) {
                      if (estadoTecnicoService.findByPersona(personaOrgano1.getPersona()).size() == 1){
