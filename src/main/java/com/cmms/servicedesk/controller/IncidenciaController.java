@@ -147,7 +147,7 @@ public class IncidenciaController {
                     break;
                 }
             }
-            if (historialIncidencia.getPersona_asignado() == null){
+            if (historialIncidencia.getPersona_asignado().getIdpersona() == null){
                 for (EstadoTecnico estadoTecnico:estadoTecnicoService.findByActivo('N')) {
                     for (PersonaOrgano personaOrgano1:personaOrgano ) {
                      if (estadoTecnicoService.findByPersona(personaOrgano1.getPersona()).size() == 1){
